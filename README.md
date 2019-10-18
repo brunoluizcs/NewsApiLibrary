@@ -17,7 +17,7 @@ fun fetchTopHeadlines(query: String? = null,category: Category? = null,country: 
    * `pageSize` — O número de resultados por requisição
    * `page` — A página que deseja requisitar se o número de total de resposta for maior que o número de páginas
 
-*** fetchEverything ***
+**fetchEverything**
 
 Pesquisa atraves de todos artigos e noticias incluindo artigos de pequenos blogs**
 
