@@ -30,6 +30,16 @@ Pesquisa atraves de todos artigos e noticias incluindo artigos de pequenos blogs
    * `language` — Código  ISO-639-1 da linguagem que deseja buscar
    * `pageSize` — O número de resultados por requisição
    * `page` — A página que deseja requisitar se o número de total de resposta for maior que o número de páginas
+   
+
+### Exemplo
+```
+val googleApi = GoogleApiBuilder()
+            .withApiKey("")
+            .build()
+            
+googleApi.fetchTopHeadlines()
+```
 
 #### Projetos
   * [Stay Informed Android](https://github.com/GustavoCaspirro/stay-informed-android)
