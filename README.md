@@ -7,7 +7,9 @@ Biblioteca utilizada para consumir API de noticias
 
 Retorna as principais noticias para um país ou categoria especifica também é possível buscar por termos especificos**
 
-```fun fetchTopHeadlines(query: String? = null,category: Category? = null,country: String = "br", pageSize: Int = 50,page: Int = 0) : ArticleResponse```
+```
+fun fetchTopHeadlines(query: String? = null,category: Category? = null,country: String = "br", pageSize: Int = 50,page: Int = 0) : ArticleResponse
+```
 
  * **Parâmetros:**
    * `query` — palavra chave ou frase para realizar a busca
@@ -19,7 +21,9 @@ Retorna as principais noticias para um país ou categoria especifica também é 
 
 Pesquisa atraves de todos artigos e noticias incluindo artigos de pequenos blogs**
 
-```fun fetchEverything(query: String? = null,queryInTitle: String? = null,from: Date? = null,to: Date? = null, sortBy: Sorter? = null,language: String = "pt",pageSize: Int = 50,page: Int = 0) : ArticleResponse```
+```
+fun fetchEverything(query: String? = null,queryInTitle: String? = null,from: Date? = null,to: Date? = null, sortBy: Sorter? = null,language: String = "pt",pageSize: Int = 50,page: Int = 0) : ArticleResponse
+```
 
  * **Parâmetros:**
    * `query` — palavra chave ou frase para realizar a busca
