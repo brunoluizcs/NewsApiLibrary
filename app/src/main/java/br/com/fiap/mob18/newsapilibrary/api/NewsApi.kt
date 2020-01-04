@@ -1,5 +1,6 @@
 package br.com.fiap.mob18.newsapilibrary.api
 
+import br.com.fiap.mob18.newsapilibrary.model.Article
 import br.com.fiap.mob18.newsapilibrary.model.ArticleResponse
 import br.com.fiap.mob18.newsapilibrary.model.Category
 import br.com.fiap.mob18.newsapilibrary.model.Sorter
@@ -33,6 +34,24 @@ interface NewsApi {
      */
     fun fetchEverything(query: String? = null,queryInTitle: String? = null,from: Date? = null,to: Date? = null,
                         sortBy: Sorter? = null,language: String = "pt",pageSize: Int = 50,page: Int = 0) : ArticleResponse
+
+
+    /**
+     * Lista os artigos favoritos
+     */
+    fun fetchFavorites() : ArticleResponse
+
+    /**
+     * Adiciona um artigo na lista de favoritos
+     * @param article artigo que deseja marcar como favorito
+     */
+    fun addFavorite(article: Article)
+
+    /**
+     * Remove um artigo da lista de favoritos
+     * @param article artigo que deseja remover da lista de favorito
+     */
+    fun removeFavorite(article: Article)
 
 
 }

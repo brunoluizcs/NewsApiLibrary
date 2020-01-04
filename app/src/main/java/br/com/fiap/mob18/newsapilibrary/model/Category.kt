@@ -1,6 +1,10 @@
 package br.com.fiap.mob18.newsapilibrary.model
 
-enum class Category(val value: String){
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+enum class Category(val value: String) : Parcelable {
     Business("business"),
     Entertainment("entertainment"),
     General("general"),

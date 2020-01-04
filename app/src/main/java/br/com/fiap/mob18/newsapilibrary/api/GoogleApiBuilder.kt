@@ -1,9 +1,9 @@
 package br.com.fiap.mob18.newsapilibrary.api
 
 import android.annotation.SuppressLint
-import br.com.fiap.mob18.newsapilibrary.model.ArticleResponse
-import br.com.fiap.mob18.newsapilibrary.model.Category
-import br.com.fiap.mob18.newsapilibrary.model.Sorter
+import android.app.Application
+import br.com.fiap.mob18.newsapilibrary.database.NewsDatabaseBuilder
+import br.com.fiap.mob18.newsapilibrary.model.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -36,8 +36,24 @@ class GoogleApiBuilder {
     }
 
 
-    fun build() : NewsApi{
+    fun build(application: Application) : NewsApi{
+        val db = NewsDatabaseBuilder().build(application)
+
         return object: NewsApi{
+            override fun fetchFavorites(): ArticleResponse {
+                val articles = db.articleDao().getAll().map {
+                    it.parseToArticle()
+                }
+                return ArticleResponse("",articles.size,"",articles)
+            }
+
+            override fun addFavorite(article: Article) {
+                db.articleDao().insertAll(article.parseToEntity())
+            }
+
+            override fun removeFavorite(article: Article) {
+                db.articleDao().delete(article.title)
+            }
 
             override fun fetchTopHeadlines(query: String?,category: Category?,
                                            country: String,pageSize: Int,page: Int): ArticleResponse {
@@ -61,7 +77,11 @@ class GoogleApiBuilder {
 
                 client.newCall(request).execute()
                     .use {
-                            response -> return gson.fromJson(response.body?.string(),ArticleResponse::class.java)
+                        response -> val articles = gson.fromJson(response.body?.string(),ArticleResponse::class.java)
+                            articles.articles.map {
+                                it.isFavorite = db.articleDao().getByTitle(it.title).isNotEmpty()
+                            }
+                        return articles
                     }
             }
 
@@ -92,7 +112,11 @@ class GoogleApiBuilder {
 
                 client.newCall(request).execute()
                     .use {
-                        response -> return gson.fromJson(response.body?.string(),ArticleResponse::class.java)
+                        response -> val articles = gson.fromJson(response.body?.string(),ArticleResponse::class.java)
+                        articles.articles.map {
+                            it.isFavorite = db.articleDao().getByTitle(it.title).isNotEmpty()
+                        }
+                        return articles
                     }
             }
         }
